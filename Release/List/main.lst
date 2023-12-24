@@ -1,18 +1,18 @@
 
-AVRASM ver. 2.1.30  F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm Sat Dec 23 12:43:37 2023
+AVRASM ver. 2.1.30  F:\College\14021\Digital II\Practice\Final-2\Release\List\main.asm Sat Dec 23 15:33:42 2023
 
-F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1088): warning: Register r4 already defined by the .DEF directive
-F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1089): warning: Register r5 already defined by the .DEF directive
-F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1090): warning: Register r7 already defined by the .DEF directive
-F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1091): warning: Register r6 already defined by the .DEF directive
-F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1092): warning: Register r9 already defined by the .DEF directive
+F:\College\14021\Digital II\Practice\Final-2\Release\List\main.asm(1088): warning: Register r4 already defined by the .DEF directive
+F:\College\14021\Digital II\Practice\Final-2\Release\List\main.asm(1089): warning: Register r5 already defined by the .DEF directive
+F:\College\14021\Digital II\Practice\Final-2\Release\List\main.asm(1090): warning: Register r7 already defined by the .DEF directive
+F:\College\14021\Digital II\Practice\Final-2\Release\List\main.asm(1091): warning: Register r6 already defined by the .DEF directive
+F:\College\14021\Digital II\Practice\Final-2\Release\List\main.asm(1092): warning: Register r9 already defined by the .DEF directive
                  
                  
                  ;CodeVisionAVR C Compiler V3.14 Advanced
                  ;(C) Copyright 1998-2014 Pavel Haiduc, HP InfoTech s.r.l.
                  ;http://www.hpinfotech.com
                  
-                 ;Build configuration    : Debug
+                 ;Build configuration    : Release
                  ;Chip type              : ATmega16A
                  ;Program type           : Application
                  ;Clock frequency        : 1.000000 MHz
@@ -1108,14 +1108,14 @@ F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1092): warning:
                  
                  ;INTERRUPT VECTORS
 000000 940c 0051 	JMP  __RESET
-000002 940c 0143 	JMP  _trigger_alarm
+000002 940c 0135 	JMP  _trigger_alarm
 000004 940c 0000 	JMP  0x00
 000006 940c 0000 	JMP  0x00
 000008 940c 0000 	JMP  0x00
 00000a 940c 0000 	JMP  0x00
 00000c 940c 0000 	JMP  0x00
 00000e 940c 0000 	JMP  0x00
-000010 940c 00ac 	JMP  _exit_silent_mode
+000010 940c 0141 	JMP  _exit_silent_mode
 000012 940c 0000 	JMP  0x00
 000014 940c 0000 	JMP  0x00
 000016 940c 0000 	JMP  0x00
@@ -1159,7 +1159,7 @@ F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1092): warning:
 00003c 6e75
 00003d 6f6c      	.DB  0x6B,0x20,0x34,0x3A,0x75,0x6E,0x6C,0x6F
 00003e 6b63
-F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1139): warning: .cseg .db misalignment - padding zero byte
+F:\College\14021\Digital II\Practice\Final-2\Release\List\main.asm(1139): warning: .cseg .db misalignment - padding zero byte
 00003f 0000      	.DB  0x63,0x6B,0x0
                  _0x2000003:
 000040 c080      	.DB  0x80,0xC0
@@ -1253,7 +1253,7 @@ F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1139): warning:
 00007a e6c0      	LDI  R28,LOW(__SRAM_START+__DSTACK_SIZE)
 00007b e0d1      	LDI  R29,HIGH(__SRAM_START+__DSTACK_SIZE)
                  
-00007c 940c 014c 	JMP  _main
+00007c 940c 014d 	JMP  _main
                  
                  	.ESEG
                  	.ORG 0
@@ -1262,7 +1262,7 @@ F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1139): warning:
                  	.ORG 0x160
                  
                  	.CSEG
-                 ;#include <mega16.h>
+                 ;#include <mega16a.h>
                  	#ifndef __SLEEP_DEFINED__
                  	#define __SLEEP_DEFINED__
                  	.EQU __se_bit=0x40
@@ -1274,10 +1274,13 @@ F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1139): warning:
                  	.EQU __sm_adc_noise_red=0x10
                  	.SET power_ctrl_reg=mcucr
                  	#endif
-                 ;#asm
-                 .equ __lcd_port=0x15
-                 ; 0000 0004 #endasm
                  ;#include <lcd.h>
+                 ;
+                 ;
+                 ;#asm
+                  .equ __lcd_port=0x15;
+                 ; 0000 0007 #endasm
+                 ;
                  ;#include <delay.h>
                  ;#define IS_ON_LED_OUT PORTD .6
                  ;#define ALARM_OUT PORTD .5
@@ -1301,14 +1304,14 @@ F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1139): warning:
                  ;bit is_silent_mode = 0;   // A few seconds after alarm discard, the sensor input will be ignored.
                  ;bit is_remote_locked = 0; // if remote is locked programmatically using keypad
                  ;void temporarily_pause_sensor()
-                 ; 0000 001D {
+                 ; 0000 0020 {
                  
                  	.CSEG
                  _temporarily_pause_sensor:
                  ; .FSTART _temporarily_pause_sensor
-                 ; 0000 001E   // with prescale set to 1024 and clk frequency = 1MHz, timer counts almost 1ms each clock.
-                 ; 0000 001F   int timer_bottom = (65 - PAUSE_TIME_AFTER_DISCARD_SECONDS) * 1000;
-                 ; 0000 0020   is_silent_mode = 1;
+                 ; 0000 0021   // with prescale set to 1024 and clk frequency = 1MHz, timer counts almost 1ms each clock.
+                 ; 0000 0022   int timer_bottom = (65 - PAUSE_TIME_AFTER_DISCARD_SECONDS) * 1000;
+                 ; 0000 0023   is_silent_mode = 1;
 00007e 931a      	ST   -Y,R17
 00007f 930a      	ST   -Y,R16
                  ;	timer_bottom -> R16,R17
@@ -1322,93 +1325,73 @@ F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1139): warning:
 000088 018f      	MOVW R16,R30
 000089 9468      	SET
 00008a f822      	BLD  R2,2
-                 ; 0000 0021   TCNT1 = timer_bottom;
+                 ; 0000 0024   TCNT1 = timer_bottom;
                 +
 00008b bd1d     +OUT 44 + 1 , R17
 00008c bd0c     +OUT 44 , R16
                  	__OUTWR 16,17,44
-                 ; 0000 0022   TCCR1B |= 0x05; // prescale set to 5 -> 1MHz / 1024 ~= 1ms
+                 ; 0000 0025   TCCR1B |= 0x05; // prescale set to 5 -> 1MHz / 1024 ~= 1ms
 00008d b5ee      	IN   R30,0x2E
 00008e 60e5      	ORI  R30,LOW(0x5)
 00008f bdee      	OUT  0x2E,R30
-                 ; 0000 0023 }
+                 ; 0000 0026 }
 000090 9109      	LD   R16,Y+
 000091 9119      	LD   R17,Y+
 000092 9508      	RET
                  ; .FEND
                  ;
                  ;void handle_remote_action(eRemoteAction rmt_action)
-                 ; 0000 0026 {
+                 ; 0000 0029 {
                  _handle_remote_action:
                  ; .FSTART _handle_remote_action
-                 ; 0000 0027   if (rmt_action == rmt_no_action)
+                 ; 0000 002A   if (rmt_action == rmt_no_action)
 000093 93aa      	ST   -Y,R26
                  ;	rmt_action -> Y+0
 000094 81e8      	LD   R30,Y
 000095 30e0      	CPI  R30,0
 000096 f411      	BRNE _0x3
-                 ; 0000 0028     return;
-000097 940c 0292 	JMP  _0x2020001
-                 ; 0000 0029 
-                 ; 0000 002A   if (rmt_action == rmt_turn_on)
+                 ; 0000 002B     return;
+000097 940c 028e 	JMP  _0x2020001
+                 ; 0000 002C 
+                 ; 0000 002D   if (rmt_action == rmt_turn_on)
                  _0x3:
 000099 81a8      	LD   R26,Y
 00009a 30a1      	CPI  R26,LOW(0x1)
 00009b f411      	BRNE _0x4
-                 ; 0000 002B   {
-                 ; 0000 002C     is_on = 1;
+                 ; 0000 002E   {
+                 ; 0000 002F     is_on = 1;
 00009c 9468      	SET
 00009d f820      	BLD  R2,0
-                 ; 0000 002D   }
-                 ; 0000 002E   if (rmt_action == rmt_turn_off)
+                 ; 0000 0030   }
+                 ; 0000 0031   if (rmt_action == rmt_turn_off)
                  _0x4:
 00009e 81a8      	LD   R26,Y
 00009f 30a2      	CPI  R26,LOW(0x2)
 0000a0 f419      	BRNE _0x5
-                 ; 0000 002F   {
-                 ; 0000 0030     is_on = 0;
+                 ; 0000 0032   {
+                 ; 0000 0033     is_on = 0;
 0000a1 94e8      	CLT
 0000a2 f820      	BLD  R2,0
-                 ; 0000 0031     alarm_triggered = 0;
+                 ; 0000 0034     alarm_triggered = 0;
 0000a3 f821      	BLD  R2,1
-                 ; 0000 0032   }
-                 ; 0000 0033   if (rmt_action == rmt_discard_alarm)
+                 ; 0000 0035   }
+                 ; 0000 0036   if (rmt_action == rmt_discard_alarm)
                  _0x5:
 0000a4 81a8      	LD   R26,Y
 0000a5 30a3      	CPI  R26,LOW(0x3)
 0000a6 f419      	BRNE _0x6
-                 ; 0000 0034   {
-                 ; 0000 0035     alarm_triggered = 0;
+                 ; 0000 0037   {
+                 ; 0000 0038     alarm_triggered = 0;
 0000a7 94e8      	CLT
 0000a8 f821      	BLD  R2,1
-                 ; 0000 0036     temporarily_pause_sensor();
+                 ; 0000 0039     temporarily_pause_sensor();
 0000a9 dfd4      	RCALL _temporarily_pause_sensor
-                 ; 0000 0037   }
-                 ; 0000 0038 }
+                 ; 0000 003A   }
+                 ; 0000 003B }
                  _0x6:
-0000aa 940c 0292 	JMP  _0x2020001
+0000aa 940c 028e 	JMP  _0x2020001
                  ; .FEND
                  ;
-                 ;
-                 ;interrupt[TIM1_OVF] void exit_silent_mode()
-                 ; 0000 003C {
-                 _exit_silent_mode:
-                 ; .FSTART _exit_silent_mode
-0000ac 93ea      	ST   -Y,R30
-0000ad b7ef      	IN   R30,SREG
-0000ae 93ea      	ST   -Y,R30
-                 ; 0000 003D   is_silent_mode = 0;
-0000af 94e8      	CLT
-0000b0 f822      	BLD  R2,2
-                 ; 0000 003E   TCCR1B = 0x00; // turn off the timer
-0000b1 e0e0      	LDI  R30,LOW(0)
-0000b2 bdee      	OUT  0x2E,R30
-                 ; 0000 003F }
-0000b3 91e9      	LD   R30,Y+
-0000b4 bfef      	OUT  SREG,R30
-0000b5 91e9      	LD   R30,Y+
-0000b6 9518      	RETI
-                 ; .FEND
                  ;
                  ;const char KEYPAD_MATRIX[4][3] = {
                  ;    {'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}, {'*', '0', '#'}};
@@ -1424,239 +1407,235 @@ F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1139): warning:
                  ;} eKeypadAction;
                  ;
                  ;char read_keypad()
-                 ; 0000 004F {
+                 ; 0000 004C {
                  _read_keypad:
                  ; .FSTART _read_keypad
-                 ; 0000 0050   char key = 0;
-                 ; 0000 0051 
-                 ; 0000 0052   while (1)
-0000b7 931a      	ST   -Y,R17
+                 ; 0000 004D   char key = 0;
+                 ; 0000 004E 
+                 ; 0000 004F   while (1)
+0000ac 931a      	ST   -Y,R17
                  ;	key -> R17
-0000b8 e010      	LDI  R17,0
+0000ad e010      	LDI  R17,0
                  _0x7:
-                 ; 0000 0053   {
-                 ; 0000 0054     int i, j;
-                 ; 0000 0055     if (KEYPAD_ENABLE_PIN == 0)
-0000b9 9724      	SBIW R28,4
+                 ; 0000 0050   {
+                 ; 0000 0051     int i, j;
+                 ; 0000 0052     if (KEYPAD_ENABLE_PIN == 0)
+0000ae 9724      	SBIW R28,4
                  ;	i -> Y+2
                  ;	j -> Y+0
-0000ba 99cb      	SBIC 0x19,3
-0000bb c002      	RJMP _0xA
-                 ; 0000 0056     {
-                 ; 0000 0057       break;
-0000bc 9624      	ADIW R28,4
-0000bd c040      	RJMP _0x9
-                 ; 0000 0058     }
-                 ; 0000 0059 
-                 ; 0000 005A     for (i = 0; i < 3; i++)
+0000af 99cb      	SBIC 0x19,3
+0000b0 c002      	RJMP _0xA
+                 ; 0000 0053     {
+                 ; 0000 0054       break;
+0000b1 9624      	ADIW R28,4
+0000b2 c040      	RJMP _0x9
+                 ; 0000 0055     }
+                 ; 0000 0056 
+                 ; 0000 0057     for (i = 0; i < 3; i++)
                  _0xA:
-0000be e0e0      	LDI  R30,LOW(0)
-0000bf 83ea      	STD  Y+2,R30
-0000c0 83eb      	STD  Y+2+1,R30
+0000b3 e0e0      	LDI  R30,LOW(0)
+0000b4 83ea      	STD  Y+2,R30
+0000b5 83eb      	STD  Y+2+1,R30
                  _0xC:
-0000c1 81aa      	LDD  R26,Y+2
-0000c2 81bb      	LDD  R27,Y+2+1
-0000c3 9713      	SBIW R26,3
-0000c4 f5bc      	BRGE _0xD
-                 ; 0000 005B     {
-                 ; 0000 005C       // Set one column low at a time
-                 ; 0000 005D       KEYPAD_PORT |= 0x0F;
-0000c5 b3e8      	IN   R30,0x18
-0000c6 60ef      	ORI  R30,LOW(0xF)
-0000c7 bbe8      	OUT  0x18,R30
-                 ; 0000 005E       KEYPAD_PORT &= ~(1 << i);
-0000c8 b218      	IN   R1,24
-0000c9 81ea      	LDD  R30,Y+2
-0000ca e0a1      	LDI  R26,LOW(1)
-0000cb 940e 02b8 	CALL __LSLB12
-0000cd 95e0      	COM  R30
-0000ce 21e1      	AND  R30,R1
-0000cf bbe8      	OUT  0x18,R30
-                 ; 0000 005F 
-                 ; 0000 0060       delay_ms(5);
-0000d0 e0a5      	LDI  R26,LOW(5)
-0000d1 e0b0      	LDI  R27,0
-0000d2 940e 02aa 	CALL _delay_ms
-                 ; 0000 0061 
-                 ; 0000 0062       // Check rows
-                 ; 0000 0063       for (j = 0; j < 4; j++)
-0000d4 e0e0      	LDI  R30,LOW(0)
-0000d5 83e8      	STD  Y+0,R30
-0000d6 83e9      	STD  Y+0+1,R30
+0000b6 81aa      	LDD  R26,Y+2
+0000b7 81bb      	LDD  R27,Y+2+1
+0000b8 9713      	SBIW R26,3
+0000b9 f5bc      	BRGE _0xD
+                 ; 0000 0058     {
+                 ; 0000 0059       // Set one column low at a time
+                 ; 0000 005A       KEYPAD_PORT |= 0x0F;
+0000ba b3e8      	IN   R30,0x18
+0000bb 60ef      	ORI  R30,LOW(0xF)
+0000bc bbe8      	OUT  0x18,R30
+                 ; 0000 005B       KEYPAD_PORT &= ~(1 << i);
+0000bd b218      	IN   R1,24
+0000be 81ea      	LDD  R30,Y+2
+0000bf e0a1      	LDI  R26,LOW(1)
+0000c0 940e 02b8 	CALL __LSLB12
+0000c2 95e0      	COM  R30
+0000c3 21e1      	AND  R30,R1
+0000c4 bbe8      	OUT  0x18,R30
+                 ; 0000 005C 
+                 ; 0000 005D       delay_ms(5);
+0000c5 e0a5      	LDI  R26,LOW(5)
+0000c6 e0b0      	LDI  R27,0
+0000c7 940e 02aa 	CALL _delay_ms
+                 ; 0000 005E 
+                 ; 0000 005F       // Check rows
+                 ; 0000 0060       for (j = 0; j < 4; j++)
+0000c9 e0e0      	LDI  R30,LOW(0)
+0000ca 83e8      	STD  Y+0,R30
+0000cb 83e9      	STD  Y+0+1,R30
                  _0xF:
-0000d7 81a8      	LD   R26,Y
-0000d8 81b9      	LDD  R27,Y+1
-0000d9 9714      	SBIW R26,4
-0000da f4dc      	BRGE _0x10
-                 ; 0000 0064       {
-                 ; 0000 0065         if (!(KEYPAD_PIN & (1 << (j + 4))))
-0000db 940e 0294 	CALL SUBOPT_0x0
-0000dd f491      	BRNE _0x11
-                 ; 0000 0066         {
-                 ; 0000 0067           // Key pressed
-                 ; 0000 0068           key = KEYPAD_MATRIX[j][i];
-0000de 81a8      	LD   R26,Y
-0000df 81b9      	LDD  R27,Y+1
-0000e0 e0e3      	LDI  R30,LOW(3)
-0000e1 940e 02d1 	CALL __MULB1W2U
-0000e3 5aec      	SUBI R30,LOW(-_KEYPAD_MATRIX*2)
-0000e4 4fff      	SBCI R31,HIGH(-_KEYPAD_MATRIX*2)
-0000e5 81aa      	LDD  R26,Y+2
-0000e6 81bb      	LDD  R27,Y+2+1
-0000e7 0fea      	ADD  R30,R26
-0000e8 1ffb      	ADC  R31,R27
-0000e9 9114      	LPM  R17,Z
-                 ; 0000 0069           while (!(KEYPAD_PIN & (1 << (j + 4))))
+0000cc 81a8      	LD   R26,Y
+0000cd 81b9      	LDD  R27,Y+1
+0000ce 9714      	SBIW R26,4
+0000cf f4dc      	BRGE _0x10
+                 ; 0000 0061       {
+                 ; 0000 0062         if (!(KEYPAD_PIN & (1 << (j + 4))))
+0000d0 940e 0290 	CALL SUBOPT_0x0
+0000d2 f491      	BRNE _0x11
+                 ; 0000 0063         {
+                 ; 0000 0064           // Key pressed
+                 ; 0000 0065           key = KEYPAD_MATRIX[j][i];
+0000d3 81a8      	LD   R26,Y
+0000d4 81b9      	LDD  R27,Y+1
+0000d5 e0e3      	LDI  R30,LOW(3)
+0000d6 940e 02d1 	CALL __MULB1W2U
+0000d8 5aec      	SUBI R30,LOW(-_KEYPAD_MATRIX*2)
+0000d9 4fff      	SBCI R31,HIGH(-_KEYPAD_MATRIX*2)
+0000da 81aa      	LDD  R26,Y+2
+0000db 81bb      	LDD  R27,Y+2+1
+0000dc 0fea      	ADD  R30,R26
+0000dd 1ffb      	ADC  R31,R27
+0000de 9114      	LPM  R17,Z
+                 ; 0000 0066           while (!(KEYPAD_PIN & (1 << (j + 4))))
                  _0x12:
-0000ea 940e 0294 	CALL SUBOPT_0x0
-0000ec f3e9      	BREQ _0x12
-                 ; 0000 006A             ; // Wait for key release
-                 ; 0000 006B           return key;
-0000ed 2fe1      	MOV  R30,R17
-0000ee 9624      	ADIW R28,4
-0000ef c00e      	RJMP _0x2020002
-                 ; 0000 006C         }
-                 ; 0000 006D       }
+0000df 940e 0290 	CALL SUBOPT_0x0
+0000e1 f3e9      	BREQ _0x12
+                 ; 0000 0067             ; // Wait for key release
+                 ; 0000 0068           return key;
+0000e2 2fe1      	MOV  R30,R17
+0000e3 9624      	ADIW R28,4
+0000e4 c00e      	RJMP _0x2020002
+                 ; 0000 0069         }
+                 ; 0000 006A       }
                  _0x11:
-0000f0 81e8      	LD   R30,Y
-0000f1 81f9      	LDD  R31,Y+1
-0000f2 9631      	ADIW R30,1
-0000f3 83e8      	ST   Y,R30
-0000f4 83f9      	STD  Y+1,R31
-0000f5 cfe1      	RJMP _0xF
+0000e5 81e8      	LD   R30,Y
+0000e6 81f9      	LDD  R31,Y+1
+0000e7 9631      	ADIW R30,1
+0000e8 83e8      	ST   Y,R30
+0000e9 83f9      	STD  Y+1,R31
+0000ea cfe1      	RJMP _0xF
                  _0x10:
-                 ; 0000 006E     }
-0000f6 81ea      	LDD  R30,Y+2
-0000f7 81fb      	LDD  R31,Y+2+1
-0000f8 9631      	ADIW R30,1
-0000f9 83ea      	STD  Y+2,R30
-0000fa 83fb      	STD  Y+2+1,R31
-0000fb cfc5      	RJMP _0xC
+                 ; 0000 006B     }
+0000eb 81ea      	LDD  R30,Y+2
+0000ec 81fb      	LDD  R31,Y+2+1
+0000ed 9631      	ADIW R30,1
+0000ee 83ea      	STD  Y+2,R30
+0000ef 83fb      	STD  Y+2+1,R31
+0000f0 cfc5      	RJMP _0xC
                  _0xD:
-                 ; 0000 006F   }
-0000fc 9624      	ADIW R28,4
-0000fd cfbb      	RJMP _0x7
+                 ; 0000 006C   }
+0000f1 9624      	ADIW R28,4
+0000f2 cfbb      	RJMP _0x7
                  _0x9:
-                 ; 0000 0070 }
+                 ; 0000 006D }
                  _0x2020002:
-0000fe 9119      	LD   R17,Y+
-0000ff 9508      	RET
+0000f3 9119      	LD   R17,Y+
+0000f4 9508      	RET
                  ; .FEND
                  ;
                  ;void handle_keypad_action(eKeypadAction action)
-                 ; 0000 0073 {
+                 ; 0000 0070 {
                  _handle_keypad_action:
                  ; .FSTART _handle_keypad_action
-                 ; 0000 0074   if (action == kp_no_action)
-000100 93aa      	ST   -Y,R26
+                 ; 0000 0071   if (action == kp_no_action)
+0000f5 93aa      	ST   -Y,R26
                  ;	action -> Y+0
-000101 81e8      	LD   R30,Y
-000102 30e0      	CPI  R30,0
-000103 f411      	BRNE _0x15
-                 ; 0000 0075     return;
-000104 940c 0292 	JMP  _0x2020001
-                 ; 0000 0076   if (action == kp_turn_on)
+0000f6 81e8      	LD   R30,Y
+0000f7 30e0      	CPI  R30,0
+0000f8 f411      	BRNE _0x15
+                 ; 0000 0072     return;
+0000f9 940c 028e 	JMP  _0x2020001
+                 ; 0000 0073   if (action == kp_turn_on)
                  _0x15:
-000106 81a8      	LD   R26,Y
-000107 30a1      	CPI  R26,LOW(0x1)
-000108 f411      	BRNE _0x16
-                 ; 0000 0077   {
-                 ; 0000 0078     is_on = 1;
-000109 9468      	SET
-00010a f820      	BLD  R2,0
-                 ; 0000 0079   }
-                 ; 0000 007A 
-                 ; 0000 007B   if (action == kp_turn_off)
+0000fb 81a8      	LD   R26,Y
+0000fc 30a1      	CPI  R26,LOW(0x1)
+0000fd f411      	BRNE _0x16
+                 ; 0000 0074   {
+                 ; 0000 0075     is_on = 1;
+0000fe 9468      	SET
+0000ff f820      	BLD  R2,0
+                 ; 0000 0076   }
+                 ; 0000 0077 
+                 ; 0000 0078   if (action == kp_turn_off)
                  _0x16:
-00010b 81a8      	LD   R26,Y
-00010c 30a2      	CPI  R26,LOW(0x2)
-00010d f411      	BRNE _0x17
-                 ; 0000 007C   {
-                 ; 0000 007D     is_on = 0;
-00010e 94e8      	CLT
-00010f f820      	BLD  R2,0
-                 ; 0000 007E   }
-                 ; 0000 007F 
-                 ; 0000 0080   if (action == kp_lock_remote)
+000100 81a8      	LD   R26,Y
+000101 30a2      	CPI  R26,LOW(0x2)
+000102 f411      	BRNE _0x17
+                 ; 0000 0079   {
+                 ; 0000 007A     is_on = 0;
+000103 94e8      	CLT
+000104 f820      	BLD  R2,0
+                 ; 0000 007B   }
+                 ; 0000 007C 
+                 ; 0000 007D   if (action == kp_lock_remote)
                  _0x17:
-000110 81a8      	LD   R26,Y
-000111 30a3      	CPI  R26,LOW(0x3)
-000112 f411      	BRNE _0x18
-                 ; 0000 0081   {
-                 ; 0000 0082     is_remote_locked = 1;
-000113 9468      	SET
-000114 f823      	BLD  R2,3
-                 ; 0000 0083   }
-                 ; 0000 0084 
-                 ; 0000 0085   if (action == kp_unlock_remote)
+000105 81a8      	LD   R26,Y
+000106 30a3      	CPI  R26,LOW(0x3)
+000107 f411      	BRNE _0x18
+                 ; 0000 007E   {
+                 ; 0000 007F     is_remote_locked = 1;
+000108 9468      	SET
+000109 f823      	BLD  R2,3
+                 ; 0000 0080   }
+                 ; 0000 0081 
+                 ; 0000 0082   if (action == kp_unlock_remote)
                  _0x18:
-000115 81a8      	LD   R26,Y
-000116 30a4      	CPI  R26,LOW(0x4)
-000117 f411      	BRNE _0x19
-                 ; 0000 0086   {
-                 ; 0000 0087     is_remote_locked = 0;
-000118 94e8      	CLT
-000119 f823      	BLD  R2,3
-                 ; 0000 0088   }
-                 ; 0000 0089   if (action == kp_discard_alarm)
+00010a 81a8      	LD   R26,Y
+00010b 30a4      	CPI  R26,LOW(0x4)
+00010c f411      	BRNE _0x19
+                 ; 0000 0083   {
+                 ; 0000 0084     is_remote_locked = 0;
+00010d 94e8      	CLT
+00010e f823      	BLD  R2,3
+                 ; 0000 0085   }
+                 ; 0000 0086   if (action == kp_discard_alarm)
                  _0x19:
-00011a 81a8      	LD   R26,Y
-00011b 30a5      	CPI  R26,LOW(0x5)
-00011c f411      	BRNE _0x1A
-                 ; 0000 008A   {
-                 ; 0000 008B     alarm_triggered = 0;
-00011d 94e8      	CLT
-00011e f821      	BLD  R2,1
-                 ; 0000 008C   }
-                 ; 0000 008D }
+00010f 81a8      	LD   R26,Y
+000110 30a5      	CPI  R26,LOW(0x5)
+000111 f411      	BRNE _0x1A
+                 ; 0000 0087   {
+                 ; 0000 0088     alarm_triggered = 0;
+000112 94e8      	CLT
+000113 f821      	BLD  R2,1
+                 ; 0000 0089   }
+                 ; 0000 008A }
                  _0x1A:
-00011f 940c 0292 	JMP  _0x2020001
+000114 940c 028e 	JMP  _0x2020001
                  ; .FEND
                  ;
                  ;void lcd_render_guide()
-                 ; 0000 0090 {
+                 ; 0000 008D {
                  _lcd_render_guide:
                  ; .FSTART _lcd_render_guide
-                 ; 0000 0091   lcd_clear();
-000121 940e 0218 	CALL _lcd_clear
-                 ; 0000 0092   _lcd_ready();
-000123 d0a8      	RCALL __lcd_ready
-                 ; 0000 0093   lcd_gotoxy(0, 0);
-000124 e0e0      	LDI  R30,LOW(0)
-000125 93ea      	ST   -Y,R30
-000126 e0a0      	LDI  R26,LOW(0)
-000127 940e 0208 	CALL _lcd_gotoxy
-                 ; 0000 0094   delay_ms(10);
-000129 e0aa      	LDI  R26,LOW(10)
-00012a e0b0      	LDI  R27,0
-00012b 940e 02aa 	CALL _delay_ms
-                 ; 0000 0095   lcd_puts("1:on 2:off");
+                 ; 0000 008E   lcd_clear();
+000116 940e 0214 	CALL _lcd_clear
+                 ; 0000 008F   lcd_gotoxy(0, 0);
+000118 e0e0      	LDI  R30,LOW(0)
+000119 93ea      	ST   -Y,R30
+00011a e0a0      	LDI  R26,LOW(0)
+00011b 940e 0204 	CALL _lcd_gotoxy
+                 ; 0000 0090   delay_ms(10);
+00011d 940e 029e 	CALL SUBOPT_0x1
+                 ; 0000 0091   lcd_puts("1:on 2:off");
                 +
-00012d e6a0     +LDI R26 , LOW ( _0x1B + ( 0 ) )
-00012e e0b1     +LDI R27 , HIGH ( _0x1B + ( 0 ) )
+00011f e6a0     +LDI R26 , LOW ( _0x1B + ( 0 ) )
+000120 e0b1     +LDI R27 , HIGH ( _0x1B + ( 0 ) )
                  	__POINTW2MN _0x1B,0
-00012f 940e 0245 	CALL _lcd_puts
-                 ; 0000 0096   delay_ms(15);
-000131 e0af      	LDI  R26,LOW(15)
-000132 e0b0      	LDI  R27,0
-000133 940e 02aa 	CALL _delay_ms
-                 ; 0000 0097   lcd_gotoxy(0, 1);
-000135 e0e0      	LDI  R30,LOW(0)
-000136 93ea      	ST   -Y,R30
-000137 e0a1      	LDI  R26,LOW(1)
-000138 940e 0208 	CALL _lcd_gotoxy
-                 ; 0000 0098   delay_ms(15);
-00013a e0af      	LDI  R26,LOW(15)
-00013b e0b0      	LDI  R27,0
-00013c 940e 02aa 	CALL _delay_ms
-                 ; 0000 0099   lcd_puts("3:lock 4:unlock");
+000121 940e 0241 	CALL _lcd_puts
+                 ; 0000 0092   delay_ms(15);
+000123 e0af      	LDI  R26,LOW(15)
+000124 e0b0      	LDI  R27,0
+000125 940e 02aa 	CALL _delay_ms
+                 ; 0000 0093   lcd_gotoxy(0, 1);
+000127 e0e0      	LDI  R30,LOW(0)
+000128 93ea      	ST   -Y,R30
+000129 e0a1      	LDI  R26,LOW(1)
+00012a 940e 0204 	CALL _lcd_gotoxy
+                 ; 0000 0094   delay_ms(15);
+00012c e0af      	LDI  R26,LOW(15)
+00012d e0b0      	LDI  R27,0
+00012e 940e 02aa 	CALL _delay_ms
+                 ; 0000 0095   lcd_puts("3:lock 4:unlock");
                 +
-00013e e6ab     +LDI R26 , LOW ( _0x1B + ( 11 ) )
-00013f e0b1     +LDI R27 , HIGH ( _0x1B + ( 11 ) )
+000130 e6ab     +LDI R26 , LOW ( _0x1B + ( 11 ) )
+000131 e0b1     +LDI R27 , HIGH ( _0x1B + ( 11 ) )
                  	__POINTW2MN _0x1B,11
-000140 940e 0245 	CALL _lcd_puts
-                 ; 0000 009A }
-000142 9508      	RET
+000132 940e 0241 	CALL _lcd_puts
+                 ; 0000 0096 }
+000134 9508      	RET
                  ; .FEND
                  
                  	.DSEG
@@ -1664,265 +1643,285 @@ F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1139): warning:
 000160           	.BYTE 0x1B
                  ;
                  ;interrupt[2] void trigger_alarm()
-                 ; 0000 009D {
+                 ; 0000 0099 {
                  
                  	.CSEG
                  _trigger_alarm:
                  ; .FSTART _trigger_alarm
-000143 93ea      	ST   -Y,R30
-000144 b7ef      	IN   R30,SREG
-                 ; 0000 009E   if (is_on == 1)
-000145 fe20      	SBRS R2,0
-000146 c002      	RJMP _0x1C
-                 ; 0000 009F   {
-                 ; 0000 00A0     alarm_triggered = 1;
-000147 9468      	SET
-000148 f821      	BLD  R2,1
-                 ; 0000 00A1   }
-                 ; 0000 00A2 }
+000135 93ea      	ST   -Y,R30
+000136 b7ef      	IN   R30,SREG
+                 ; 0000 009A   if (is_on == 1 && !is_silent_mode)
+000137 fe20      	SBRS R2,0
+000138 c002      	RJMP _0x1D
+000139 fe22      	SBRS R2,2
+00013a c001      	RJMP _0x1E
+                 _0x1D:
+00013b c002      	RJMP _0x1C
+                 _0x1E:
+                 ; 0000 009B   {
+                 ; 0000 009C     alarm_triggered = 1;
+00013c 9468      	SET
+00013d f821      	BLD  R2,1
+                 ; 0000 009D   } else {
                  _0x1C:
-000149 bfef      	OUT  SREG,R30
-00014a 91e9      	LD   R30,Y+
-00014b 9518      	RETI
+                 ; 0000 009E   return;
+                 ; 0000 009F   }
+                 ; 0000 00A0 }
+                 _0x3F:
+00013e bfef      	OUT  SREG,R30
+00013f 91e9      	LD   R30,Y+
+000140 9518      	RETI
+                 ; .FEND
+                 ;
+                 ;interrupt[TIM1_OVF] void exit_silent_mode()
+                 ; 0000 00A3 {
+                 _exit_silent_mode:
+                 ; .FSTART _exit_silent_mode
+000141 93ea      	ST   -Y,R30
+000142 b7ef      	IN   R30,SREG
+000143 93ea      	ST   -Y,R30
+                 ; 0000 00A4   TCCR1B = 0x00; // turn off the timer
+000144 e0e0      	LDI  R30,LOW(0)
+000145 bdee      	OUT  0x2E,R30
+                 ; 0000 00A5   is_silent_mode = 0;
+000146 94e8      	CLT
+000147 f822      	BLD  R2,2
+                 ; 0000 00A6   alarm_triggered = 0;
+000148 f821      	BLD  R2,1
+                 ; 0000 00A7 }
+000149 91e9      	LD   R30,Y+
+00014a bfef      	OUT  SREG,R30
+00014b 91e9      	LD   R30,Y+
+00014c 9518      	RETI
                  ; .FEND
                  ;
                  ;
                  ;void main()
-                 ; 0000 00A6 {
+                 ; 0000 00AB {
                  _main:
                  ; .FSTART _main
-                 ; 0000 00A7 #asm("sei")    // Enable interrupt
-00014c 9478      	sei
-                 ; 0000 00A8   DDRA = 0x00; // Input
-00014d e0e0      	LDI  R30,LOW(0)
-00014e bbea      	OUT  0x1A,R30
-                 ; 0000 00A9   DDRB = 0x0f; // Keypad Set columns as output and rows as input
-00014f e0ef      	LDI  R30,LOW(15)
-000150 bbe7      	OUT  0x17,R30
-                 ; 0000 00AA   PORTB = 0xf0;
-000151 efe0      	LDI  R30,LOW(240)
-000152 bbe8      	OUT  0x18,R30
-                 ; 0000 00AB   DDRC = 0xff;
-000153 efef      	LDI  R30,LOW(255)
-000154 bbe4      	OUT  0x14,R30
-                 ; 0000 00AC   PORTC = 0x00;
-000155 e0e0      	LDI  R30,LOW(0)
-000156 bbe5      	OUT  0x15,R30
-                 ; 0000 00AD   DDRD = 0b11100000; // Output
-000157 eee0      	LDI  R30,LOW(224)
-000158 bbe1      	OUT  0x11,R30
-                 ; 0000 00AE   PORTD = 0b01000000;
-000159 e4e0      	LDI  R30,LOW(64)
-00015a bbe2      	OUT  0x12,R30
-                 ; 0000 00AF   GICR = 0b01000000;  // Enabling interrupt 0
-00015b bfeb      	OUT  0x3B,R30
-                 ; 0000 00B0   MCUCR = 0b00000011; // Rising Edge
-00015c e0e3      	LDI  R30,LOW(3)
-00015d bfe5      	OUT  0x35,R30
-                 ; 0000 00B1   GIFR = 0b1110000;
-00015e e7e0      	LDI  R30,LOW(112)
-00015f bfea      	OUT  0x3A,R30
-                 ; 0000 00B2   IS_ON_LED_OUT = 1;
-000160 9a96      	SBI  0x12,6
-                 ; 0000 00B3   ALARM_OUT = 0;
-000161 9895      	CBI  0x12,5
-                 ; 0000 00B4   TIMSK |= (1 << TOIE1); // Enable Timer1 Overflow
-000162 b7e9      	IN   R30,0x39
-000163 60e4      	ORI  R30,4
-000164 bfe9      	OUT  0x39,R30
-                 ; 0000 00B5 
-                 ; 0000 00B6   lcd_init(16);
-000165 e1a0      	LDI  R26,LOW(16)
-000166 940e 0267 	CALL _lcd_init
-                 ; 0000 00B7   _lcd_ready();
-000168 d063      	RCALL __lcd_ready
-                 ; 0000 00B8   lcd_render_guide();
-000169 dfb7      	RCALL _lcd_render_guide
-                 ; 0000 00B9   while (1)
-                 _0x21:
-                 ; 0000 00BA   {
-                 ; 0000 00BB     eRemoteAction rmt_action = rmt_no_action;
-                 ; 0000 00BC     if (REMOTE_PIN .0 == 1)
-00016a 9721      	SBIW R28,1
-00016b e0e0      	LDI  R30,LOW(0)
-00016c 83e8      	ST   Y,R30
-                 ;	rmt_action -> Y+0
-00016d 9bc8      	SBIS 0x19,0
-00016e c002      	RJMP _0x24
-                 ; 0000 00BD     {
-                 ; 0000 00BE       rmt_action = rmt_turn_on;
-00016f e0e1      	LDI  R30,LOW(1)
-000170 83e8      	ST   Y,R30
-                 ; 0000 00BF     }
-                 ; 0000 00C0 
-                 ; 0000 00C1     if (REMOTE_PIN .1 == 1)
+                 ; 0000 00AC #asm("sei")    // Enable interrupt
+00014d 9478      	sei
+                 ; 0000 00AD   DDRA = 0x00; // Input
+00014e e0e0      	LDI  R30,LOW(0)
+00014f bbea      	OUT  0x1A,R30
+                 ; 0000 00AE   DDRB = 0x0f; // Keypad Set columns as output and rows as input
+000150 e0ef      	LDI  R30,LOW(15)
+000151 bbe7      	OUT  0x17,R30
+                 ; 0000 00AF   PORTB = 0xf0;
+000152 efe0      	LDI  R30,LOW(240)
+000153 bbe8      	OUT  0x18,R30
+                 ; 0000 00B0   DDRC = 0xff;
+000154 efef      	LDI  R30,LOW(255)
+000155 bbe4      	OUT  0x14,R30
+                 ; 0000 00B1   PORTC = 0x00;
+000156 e0e0      	LDI  R30,LOW(0)
+000157 bbe5      	OUT  0x15,R30
+                 ; 0000 00B2   DDRD = 0b11100000; // Output
+000158 eee0      	LDI  R30,LOW(224)
+000159 bbe1      	OUT  0x11,R30
+                 ; 0000 00B3   PORTD = 0b01000000;
+00015a e4e0      	LDI  R30,LOW(64)
+00015b bbe2      	OUT  0x12,R30
+                 ; 0000 00B4   GICR = 0b01000000;  // Enabling interrupt 0
+00015c bfeb      	OUT  0x3B,R30
+                 ; 0000 00B5   MCUCR = 0b00000011; // Rising Edge
+00015d e0e3      	LDI  R30,LOW(3)
+00015e bfe5      	OUT  0x35,R30
+                 ; 0000 00B6   GIFR = 0b0000000;
+00015f e0e0      	LDI  R30,LOW(0)
+000160 bfea      	OUT  0x3A,R30
+                 ; 0000 00B7   IS_ON_LED_OUT = 1;
+000161 9a96      	SBI  0x12,6
+                 ; 0000 00B8   ALARM_OUT = 0;
+000162 9895      	CBI  0x12,5
+                 ; 0000 00B9   TIMSK |= (1 << TOIE1); // Enable Timer1 Overflow
+000163 b7e9      	IN   R30,0x39
+000164 60e4      	ORI  R30,4
+000165 bfe9      	OUT  0x39,R30
+                 ; 0000 00BA 
+                 ; 0000 00BB   lcd_init(16);
+000166 e1a0      	LDI  R26,LOW(16)
+000167 940e 0263 	CALL _lcd_init
+                 ; 0000 00BC   delay_ms(10);
+000169 940e 029e 	CALL SUBOPT_0x1
+                 ; 0000 00BD   lcd_render_guide();
+00016b dfaa      	RCALL _lcd_render_guide
+                 ; 0000 00BE   delay_ms(10);
+00016c 940e 029e 	CALL SUBOPT_0x1
+                 ; 0000 00BF   while (1)
                  _0x24:
-000171 9bc9      	SBIS 0x19,1
-000172 c002      	RJMP _0x25
-                 ; 0000 00C2     {
-                 ; 0000 00C3       rmt_action = rmt_turn_off;
-000173 e0e2      	LDI  R30,LOW(2)
+                 ; 0000 00C0   {
+                 ; 0000 00C1     eRemoteAction rmt_action = rmt_no_action;
+                 ; 0000 00C2     if (REMOTE_PIN .0 == 1)
+00016e 9721      	SBIW R28,1
+00016f e0e0      	LDI  R30,LOW(0)
+000170 83e8      	ST   Y,R30
+                 ;	rmt_action -> Y+0
+000171 9bc8      	SBIS 0x19,0
+000172 c002      	RJMP _0x27
+                 ; 0000 00C3     {
+                 ; 0000 00C4       rmt_action = rmt_turn_on;
+000173 e0e1      	LDI  R30,LOW(1)
 000174 83e8      	ST   Y,R30
-                 ; 0000 00C4     }
-                 ; 0000 00C5 
-                 ; 0000 00C6     if (REMOTE_PIN .2 == 1)
-                 _0x25:
-000175 9bca      	SBIS 0x19,2
-000176 c002      	RJMP _0x26
-                 ; 0000 00C7     {
-                 ; 0000 00C8       rmt_action = rmt_discard_alarm;
-000177 e0e3      	LDI  R30,LOW(3)
-000178 83e8      	ST   Y,R30
-                 ; 0000 00C9     }
-                 ; 0000 00CA 
-                 ; 0000 00CB     if (REMOTE_PIN .3 == 1)
-                 _0x26:
-000179 9bcb      	SBIS 0x19,3
-00017a c002      	RJMP _0x27
-                 ; 0000 00CC     {
-                 ; 0000 00CD       rmt_action = rmt_turn_on;
-00017b e0e1      	LDI  R30,LOW(1)
-00017c 83e8      	ST   Y,R30
-                 ; 0000 00CE     }
-                 ; 0000 00CF     if (is_remote_locked != 1)
+                 ; 0000 00C5     }
+                 ; 0000 00C6 
+                 ; 0000 00C7     if (REMOTE_PIN .1 == 1)
                  _0x27:
-00017d fc23      	SBRC R2,3
-00017e c002      	RJMP _0x28
-                 ; 0000 00D0     {
-                 ; 0000 00D1       handle_remote_action(rmt_action);
-00017f 81a8      	LD   R26,Y
-000180 df12      	RCALL _handle_remote_action
-                 ; 0000 00D2     }
-                 ; 0000 00D3 
-                 ; 0000 00D4     if (KEYPAD_ENABLE_PIN == 1)
+000175 9bc9      	SBIS 0x19,1
+000176 c002      	RJMP _0x28
+                 ; 0000 00C8     {
+                 ; 0000 00C9       rmt_action = rmt_turn_off;
+000177 e0e2      	LDI  R30,LOW(2)
+000178 83e8      	ST   Y,R30
+                 ; 0000 00CA     }
+                 ; 0000 00CB 
+                 ; 0000 00CC     if (REMOTE_PIN .2 == 1)
                  _0x28:
-000181 9bcb      	SBIS 0x19,3
-000182 c021      	RJMP _0x29
-                 ; 0000 00D5     {
-                 ; 0000 00D6 
-                 ; 0000 00D7       eKeypadAction keypad_action = kp_no_action;
-                 ; 0000 00D8       char pressed_key;
-                 ; 0000 00D9       pressed_key = read_keypad();
-000183 9722      	SBIW R28,2
-000184 e0e0      	LDI  R30,LOW(0)
-000185 83e9      	STD  Y+1,R30
+000179 9bca      	SBIS 0x19,2
+00017a c002      	RJMP _0x29
+                 ; 0000 00CD     {
+                 ; 0000 00CE       rmt_action = rmt_discard_alarm;
+00017b e0e3      	LDI  R30,LOW(3)
+00017c 83e8      	ST   Y,R30
+                 ; 0000 00CF     }
+                 ; 0000 00D0 
+                 ; 0000 00D1     if (REMOTE_PIN .3 == 1)
+                 _0x29:
+00017d 9bcb      	SBIS 0x19,3
+00017e c002      	RJMP _0x2A
+                 ; 0000 00D2     {
+                 ; 0000 00D3       rmt_action = rmt_turn_on;
+00017f e0e1      	LDI  R30,LOW(1)
+000180 83e8      	ST   Y,R30
+                 ; 0000 00D4     }
+                 ; 0000 00D5     if (is_remote_locked != 1)
+                 _0x2A:
+000181 fc23      	SBRC R2,3
+000182 c002      	RJMP _0x2B
+                 ; 0000 00D6     {
+                 ; 0000 00D7       handle_remote_action(rmt_action);
+000183 81a8      	LD   R26,Y
+000184 df0e      	RCALL _handle_remote_action
+                 ; 0000 00D8     }
+                 ; 0000 00D9 
+                 ; 0000 00DA     if (KEYPAD_ENABLE_PIN == 1)
+                 _0x2B:
+000185 9bcb      	SBIS 0x19,3
+000186 c021      	RJMP _0x2C
+                 ; 0000 00DB     {
+                 ; 0000 00DC 
+                 ; 0000 00DD       eKeypadAction keypad_action = kp_no_action;
+                 ; 0000 00DE       char pressed_key;
+                 ; 0000 00DF       pressed_key = read_keypad();
+000187 9722      	SBIW R28,2
+000188 e0e0      	LDI  R30,LOW(0)
+000189 83e9      	STD  Y+1,R30
                  ;	rmt_action -> Y+2
                  ;	keypad_action -> Y+1
                  ;	pressed_key -> Y+0
-000186 df30      	RCALL _read_keypad
-000187 83e8      	ST   Y,R30
-                 ; 0000 00DA       if (pressed_key == '1')
-000188 81a8      	LD   R26,Y
-000189 33a1      	CPI  R26,LOW(0x31)
-00018a f411      	BRNE _0x2A
-                 ; 0000 00DB       {
-                 ; 0000 00DC         keypad_action = kp_turn_on;
-00018b e0e1      	LDI  R30,LOW(1)
-00018c 83e9      	STD  Y+1,R30
-                 ; 0000 00DD       }
-                 ; 0000 00DE       if (pressed_key == '2')
-                 _0x2A:
-00018d 81a8      	LD   R26,Y
-00018e 33a2      	CPI  R26,LOW(0x32)
-00018f f411      	BRNE _0x2B
-                 ; 0000 00DF       {
-                 ; 0000 00E0         keypad_action = kp_turn_off;
-000190 e0e2      	LDI  R30,LOW(2)
-000191 83e9      	STD  Y+1,R30
-                 ; 0000 00E1       }
-                 ; 0000 00E2       if (pressed_key == '3')
-                 _0x2B:
-000192 81a8      	LD   R26,Y
-000193 33a3      	CPI  R26,LOW(0x33)
-000194 f411      	BRNE _0x2C
-                 ; 0000 00E3       {
-                 ; 0000 00E4         keypad_action = kp_lock_remote;
-000195 e0e3      	LDI  R30,LOW(3)
-000196 83e9      	STD  Y+1,R30
-                 ; 0000 00E5       }
-                 ; 0000 00E6       if (pressed_key == '4')
-                 _0x2C:
-000197 81a8      	LD   R26,Y
-000198 33a4      	CPI  R26,LOW(0x34)
-000199 f411      	BRNE _0x2D
-                 ; 0000 00E7       {
-                 ; 0000 00E8         keypad_action = kp_unlock_remote;
-00019a e0e4      	LDI  R30,LOW(4)
-00019b 83e9      	STD  Y+1,R30
-                 ; 0000 00E9       }
-                 ; 0000 00EA       if (pressed_key == '5')
+00018a df21      	RCALL _read_keypad
+00018b 83e8      	ST   Y,R30
+                 ; 0000 00E0       if (pressed_key == '1')
+00018c 81a8      	LD   R26,Y
+00018d 33a1      	CPI  R26,LOW(0x31)
+00018e f411      	BRNE _0x2D
+                 ; 0000 00E1       {
+                 ; 0000 00E2         keypad_action = kp_turn_on;
+00018f e0e1      	LDI  R30,LOW(1)
+000190 83e9      	STD  Y+1,R30
+                 ; 0000 00E3       }
+                 ; 0000 00E4       if (pressed_key == '2')
                  _0x2D:
-00019c 81a8      	LD   R26,Y
-00019d 33a5      	CPI  R26,LOW(0x35)
-00019e f411      	BRNE _0x2E
-                 ; 0000 00EB       {
-                 ; 0000 00EC         keypad_action = kp_discard_alarm;
-00019f e0e5      	LDI  R30,LOW(5)
-0001a0 83e9      	STD  Y+1,R30
-                 ; 0000 00ED       }
-                 ; 0000 00EE       handle_keypad_action(keypad_action);
+000191 81a8      	LD   R26,Y
+000192 33a2      	CPI  R26,LOW(0x32)
+000193 f411      	BRNE _0x2E
+                 ; 0000 00E5       {
+                 ; 0000 00E6         keypad_action = kp_turn_off;
+000194 e0e2      	LDI  R30,LOW(2)
+000195 83e9      	STD  Y+1,R30
+                 ; 0000 00E7       }
+                 ; 0000 00E8       if (pressed_key == '3')
                  _0x2E:
-0001a1 81a9      	LDD  R26,Y+1
-0001a2 df5d      	RCALL _handle_keypad_action
-                 ; 0000 00EF     }
-0001a3 9622      	ADIW R28,2
-                 ; 0000 00F0     IS_ON_LED_OUT = is_on == 1 ? 1 : 0;
-                 _0x29:
-0001a4 fe20      	SBRS R2,0
-0001a5 c002      	RJMP _0x2F
-0001a6 e0e1      	LDI  R30,LOW(1)
-0001a7 c001      	RJMP _0x30
+000196 81a8      	LD   R26,Y
+000197 33a3      	CPI  R26,LOW(0x33)
+000198 f411      	BRNE _0x2F
+                 ; 0000 00E9       {
+                 ; 0000 00EA         keypad_action = kp_lock_remote;
+000199 e0e3      	LDI  R30,LOW(3)
+00019a 83e9      	STD  Y+1,R30
+                 ; 0000 00EB       }
+                 ; 0000 00EC       if (pressed_key == '4')
                  _0x2F:
-0001a8 e0e0      	LDI  R30,LOW(0)
+00019b 81a8      	LD   R26,Y
+00019c 33a4      	CPI  R26,LOW(0x34)
+00019d f411      	BRNE _0x30
+                 ; 0000 00ED       {
+                 ; 0000 00EE         keypad_action = kp_unlock_remote;
+00019e e0e4      	LDI  R30,LOW(4)
+00019f 83e9      	STD  Y+1,R30
+                 ; 0000 00EF       }
+                 ; 0000 00F0       if (pressed_key == '5')
                  _0x30:
-0001a9 30e0      	CPI  R30,0
-0001aa f411      	BRNE _0x32
-0001ab 9896      	CBI  0x12,6
-0001ac c001      	RJMP _0x33
+0001a0 81a8      	LD   R26,Y
+0001a1 33a5      	CPI  R26,LOW(0x35)
+0001a2 f411      	BRNE _0x31
+                 ; 0000 00F1       {
+                 ; 0000 00F2         keypad_action = kp_discard_alarm;
+0001a3 e0e5      	LDI  R30,LOW(5)
+0001a4 83e9      	STD  Y+1,R30
+                 ; 0000 00F3       }
+                 ; 0000 00F4       handle_keypad_action(keypad_action);
+                 _0x31:
+0001a5 81a9      	LDD  R26,Y+1
+0001a6 df4e      	RCALL _handle_keypad_action
+                 ; 0000 00F5     }
+0001a7 9622      	ADIW R28,2
+                 ; 0000 00F6     IS_ON_LED_OUT = is_on == 1 ? 1 : 0;
+                 _0x2C:
+0001a8 fe20      	SBRS R2,0
+0001a9 c002      	RJMP _0x32
+0001aa e0e1      	LDI  R30,LOW(1)
+0001ab c001      	RJMP _0x33
                  _0x32:
-0001ad 9a96      	SBI  0x12,6
+0001ac e0e0      	LDI  R30,LOW(0)
                  _0x33:
-                 ; 0000 00F1     ALARM_OUT = (alarm_triggered && !is_silent_mode) ? 1 : 0;
-0001ae fe21      	SBRS R2,1
-0001af c002      	RJMP _0x34
-0001b0 fe22      	SBRS R2,2
-0001b1 c001      	RJMP _0x35
-                 _0x34:
-0001b2 c002      	RJMP _0x36
+0001ad 30e0      	CPI  R30,0
+0001ae f411      	BRNE _0x35
+0001af 9896      	CBI  0x12,6
+0001b0 c001      	RJMP _0x36
                  _0x35:
-0001b3 e0e1      	LDI  R30,LOW(1)
-0001b4 c001      	RJMP _0x37
+0001b1 9a96      	SBI  0x12,6
                  _0x36:
-0001b5 e0e0      	LDI  R30,LOW(0)
+                 ; 0000 00F7     ALARM_OUT = alarm_triggered;
+0001b2 fc21      	SBRC R2,1
+0001b3 c002      	RJMP _0x37
+0001b4 9895      	CBI  0x12,5
+0001b5 c001      	RJMP _0x38
                  _0x37:
-0001b6 30e0      	CPI  R30,0
-0001b7 f411      	BRNE _0x39
-0001b8 9895      	CBI  0x12,5
-0001b9 c001      	RJMP _0x3A
+0001b6 9a95      	SBI  0x12,5
+                 _0x38:
+                 ; 0000 00F8     IS_SENSOR_PAUSED_LED = is_silent_mode ? 1 : 0;
+0001b7 fe22      	SBRS R2,2
+0001b8 c002      	RJMP _0x39
+0001b9 e0e1      	LDI  R30,LOW(1)
+0001ba c001      	RJMP _0x3A
                  _0x39:
-0001ba 9a95      	SBI  0x12,5
+0001bb e0e0      	LDI  R30,LOW(0)
                  _0x3A:
-                 ; 0000 00F2     IS_SENSOR_PAUSED_LED = is_silent_mode ? 1 : 0;
-0001bb fe22      	SBRS R2,2
-0001bc c002      	RJMP _0x3B
-0001bd e0e1      	LDI  R30,LOW(1)
-0001be c001      	RJMP _0x3C
-                 _0x3B:
-0001bf e0e0      	LDI  R30,LOW(0)
+0001bc 30e0      	CPI  R30,0
+0001bd f411      	BRNE _0x3C
+0001be 9897      	CBI  0x12,7
+0001bf c001      	RJMP _0x3D
                  _0x3C:
-0001c0 30e0      	CPI  R30,0
-0001c1 f411      	BRNE _0x3E
-0001c2 9897      	CBI  0x12,7
-0001c3 c001      	RJMP _0x3F
+0001c0 9a97      	SBI  0x12,7
+                 _0x3D:
+                 ; 0000 00F9   }
+0001c1 9621      	ADIW R28,1
+0001c2 cfab      	RJMP _0x24
+                 ; 0000 00FA }
                  _0x3E:
-0001c4 9a97      	SBI  0x12,7
-                 _0x3F:
-                 ; 0000 00F3   }
-0001c5 9621      	ADIW R28,1
-0001c6 cfa3      	RJMP _0x21
-                 ; 0000 00F4 }
-                 _0x40:
-0001c7 cfff      	RJMP _0x40
+0001c3 cfff      	RJMP _0x3E
                  ; .FEND
                      .equ __lcd_direction=__lcd_port-1
                      .equ __lcd_pin=__lcd_port-2
@@ -1936,237 +1935,237 @@ F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1139): warning:
                  	.CSEG
                  __lcd_delay_G100:
                  ; .FSTART __lcd_delay_G100
-0001c8 e0ff          ldi   r31,15
+0001c4 e0ff          ldi   r31,15
                  __lcd_delay0:
-0001c9 95fa          dec   r31
-0001ca f7f1          brne  __lcd_delay0
-0001cb 9508      	RET
+0001c5 95fa          dec   r31
+0001c6 f7f1          brne  __lcd_delay0
+0001c7 9508      	RET
                  ; .FEND
                  __lcd_ready:
                  ; .FSTART __lcd_ready
-0001cc b3a4          in    r26,__lcd_direction
-0001cd 70af          andi  r26,0xf                 ;set as input
-0001ce bba4          out   __lcd_direction,r26
-0001cf 9aa9          sbi   __lcd_port,__lcd_rd     ;RD=1
-0001d0 98a8          cbi   __lcd_port,__lcd_rs     ;RS=0
+0001c8 b3a4          in    r26,__lcd_direction
+0001c9 70af          andi  r26,0xf                 ;set as input
+0001ca bba4          out   __lcd_direction,r26
+0001cb 9aa9          sbi   __lcd_port,__lcd_rd     ;RD=1
+0001cc 98a8          cbi   __lcd_port,__lcd_rs     ;RS=0
                  __lcd_busy:
-0001d1 dff6      	RCALL __lcd_delay_G100
-0001d2 9aaa          sbi   __lcd_port,__lcd_enable ;EN=1
-0001d3 dff4      	RCALL __lcd_delay_G100
-0001d4 b3a3          in    r26,__lcd_pin
+0001cd dff6      	RCALL __lcd_delay_G100
+0001ce 9aaa          sbi   __lcd_port,__lcd_enable ;EN=1
+0001cf dff4      	RCALL __lcd_delay_G100
+0001d0 b3a3          in    r26,__lcd_pin
+0001d1 98aa          cbi   __lcd_port,__lcd_enable ;EN=0
+0001d2 dff1      	RCALL __lcd_delay_G100
+0001d3 9aaa          sbi   __lcd_port,__lcd_enable ;EN=1
+0001d4 dfef      	RCALL __lcd_delay_G100
 0001d5 98aa          cbi   __lcd_port,__lcd_enable ;EN=0
-0001d6 dff1      	RCALL __lcd_delay_G100
-0001d7 9aaa          sbi   __lcd_port,__lcd_enable ;EN=1
-0001d8 dfef      	RCALL __lcd_delay_G100
-0001d9 98aa          cbi   __lcd_port,__lcd_enable ;EN=0
-0001da fda7          sbrc  r26,__lcd_busy_flag
-0001db cff5          rjmp  __lcd_busy
-0001dc 9508      	RET
+0001d6 fda7          sbrc  r26,__lcd_busy_flag
+0001d7 cff5          rjmp  __lcd_busy
+0001d8 9508      	RET
                  ; .FEND
                  __lcd_write_nibble_G100:
                  ; .FSTART __lcd_write_nibble_G100
-0001dd 7fa0          andi  r26,0xf0
-0001de 2bab          or    r26,r27
-0001df bba5          out   __lcd_port,r26          ;write
-0001e0 9aaa          sbi   __lcd_port,__lcd_enable ;EN=1
-0001e1 940e 01c8 	CALL __lcd_delay_G100
-0001e3 98aa          cbi   __lcd_port,__lcd_enable ;EN=0
-0001e4 940e 01c8 	CALL __lcd_delay_G100
-0001e6 9508      	RET
+0001d9 7fa0          andi  r26,0xf0
+0001da 2bab          or    r26,r27
+0001db bba5          out   __lcd_port,r26          ;write
+0001dc 9aaa          sbi   __lcd_port,__lcd_enable ;EN=1
+0001dd 940e 01c4 	CALL __lcd_delay_G100
+0001df 98aa          cbi   __lcd_port,__lcd_enable ;EN=0
+0001e0 940e 01c4 	CALL __lcd_delay_G100
+0001e2 9508      	RET
                  ; .FEND
                  __lcd_write_data:
                  ; .FSTART __lcd_write_data
-0001e7 93aa      	ST   -Y,R26
-0001e8 98a9          cbi  __lcd_port,__lcd_rd 	  ;RD=0
-0001e9 b3a4          in    r26,__lcd_direction
-0001ea 6fa7          ori   r26,0xf0 | (1<<__lcd_rs) | (1<<__lcd_rd) | (1<<__lcd_enable) ;set as output
-0001eb bba4          out   __lcd_direction,r26
-0001ec b3b5          in    r27,__lcd_port
-0001ed 70bf          andi  r27,0xf
-0001ee 81a8          ld    r26,y
-0001ef dfed      	RCALL __lcd_write_nibble_G100
-0001f0 81a8          ld    r26,y
-0001f1 95a2          swap  r26
-0001f2 dfea      	RCALL __lcd_write_nibble_G100
-0001f3 9aa9          sbi   __lcd_port,__lcd_rd     ;RD=1
-0001f4 940c 0292 	JMP  _0x2020001
+0001e3 93aa      	ST   -Y,R26
+0001e4 98a9          cbi  __lcd_port,__lcd_rd 	  ;RD=0
+0001e5 b3a4          in    r26,__lcd_direction
+0001e6 6fa7          ori   r26,0xf0 | (1<<__lcd_rs) | (1<<__lcd_rd) | (1<<__lcd_enable) ;set as output
+0001e7 bba4          out   __lcd_direction,r26
+0001e8 b3b5          in    r27,__lcd_port
+0001e9 70bf          andi  r27,0xf
+0001ea 81a8          ld    r26,y
+0001eb dfed      	RCALL __lcd_write_nibble_G100
+0001ec 81a8          ld    r26,y
+0001ed 95a2          swap  r26
+0001ee dfea      	RCALL __lcd_write_nibble_G100
+0001ef 9aa9          sbi   __lcd_port,__lcd_rd     ;RD=1
+0001f0 940c 028e 	JMP  _0x2020001
                  ; .FEND
                  __lcd_read_nibble_G100:
                  ; .FSTART __lcd_read_nibble_G100
-0001f6 9aaa          sbi   __lcd_port,__lcd_enable ;EN=1
-0001f7 940e 01c8 	CALL __lcd_delay_G100
-0001f9 b3e3          in    r30,__lcd_pin           ;read
-0001fa 98aa          cbi   __lcd_port,__lcd_enable ;EN=0
-0001fb 940e 01c8 	CALL __lcd_delay_G100
-0001fd 7fe0          andi  r30,0xf0
-0001fe 9508      	RET
+0001f2 9aaa          sbi   __lcd_port,__lcd_enable ;EN=1
+0001f3 940e 01c4 	CALL __lcd_delay_G100
+0001f5 b3e3          in    r30,__lcd_pin           ;read
+0001f6 98aa          cbi   __lcd_port,__lcd_enable ;EN=0
+0001f7 940e 01c4 	CALL __lcd_delay_G100
+0001f9 7fe0          andi  r30,0xf0
+0001fa 9508      	RET
                  ; .FEND
                  _lcd_read_byte0_G100:
                  ; .FSTART _lcd_read_byte0_G100
-0001ff 940e 01c8 	CALL __lcd_delay_G100
-000201 dff4      	RCALL __lcd_read_nibble_G100
-000202 2fae          mov   r26,r30
-000203 dff2      	RCALL __lcd_read_nibble_G100
-000204 98a9          cbi   __lcd_port,__lcd_rd     ;RD=0
-000205 95e2          swap  r30
-000206 2bea          or    r30,r26
-000207 9508      	RET
+0001fb 940e 01c4 	CALL __lcd_delay_G100
+0001fd dff4      	RCALL __lcd_read_nibble_G100
+0001fe 2fae          mov   r26,r30
+0001ff dff2      	RCALL __lcd_read_nibble_G100
+000200 98a9          cbi   __lcd_port,__lcd_rd     ;RD=0
+000201 95e2          swap  r30
+000202 2bea          or    r30,r26
+000203 9508      	RET
                  ; .FEND
                  _lcd_gotoxy:
                  ; .FSTART _lcd_gotoxy
-000208 93aa      	ST   -Y,R26
-000209 940e 01cc 	CALL __lcd_ready
-00020b 81e8      	LD   R30,Y
-00020c e0f0      	LDI  R31,0
-00020d 58e5      	SUBI R30,LOW(-__base_y_G100)
-00020e 4ffe      	SBCI R31,HIGH(-__base_y_G100)
-00020f 81e0      	LD   R30,Z
-000210 81a9      	LDD  R26,Y+1
-000211 0fae      	ADD  R26,R30
-000212 940e 01e7 	CALL __lcd_write_data
-000214 8079      	LDD  R7,Y+1
-000215 8068      	LDD  R6,Y+0
-000216 9622      	ADIW R28,2
-000217 9508      	RET
+000204 93aa      	ST   -Y,R26
+000205 940e 01c8 	CALL __lcd_ready
+000207 81e8      	LD   R30,Y
+000208 e0f0      	LDI  R31,0
+000209 58e5      	SUBI R30,LOW(-__base_y_G100)
+00020a 4ffe      	SBCI R31,HIGH(-__base_y_G100)
+00020b 81e0      	LD   R30,Z
+00020c 81a9      	LDD  R26,Y+1
+00020d 0fae      	ADD  R26,R30
+00020e 940e 01e3 	CALL __lcd_write_data
+000210 8079      	LDD  R7,Y+1
+000211 8068      	LDD  R6,Y+0
+000212 9622      	ADIW R28,2
+000213 9508      	RET
                  ; .FEND
                  _lcd_clear:
                  ; .FSTART _lcd_clear
-000218 940e 01cc 	CALL __lcd_ready
-00021a e0a2      	LDI  R26,LOW(2)
-00021b 940e 01e7 	CALL __lcd_write_data
-00021d 940e 01cc 	CALL __lcd_ready
-00021f e0ac      	LDI  R26,LOW(12)
-000220 940e 01e7 	CALL __lcd_write_data
-000222 940e 01cc 	CALL __lcd_ready
-000224 e0a1      	LDI  R26,LOW(1)
-000225 940e 01e7 	CALL __lcd_write_data
-000227 e0e0      	LDI  R30,LOW(0)
-000228 2e6e      	MOV  R6,R30
-000229 2e7e      	MOV  R7,R30
-00022a 9508      	RET
+000214 940e 01c8 	CALL __lcd_ready
+000216 e0a2      	LDI  R26,LOW(2)
+000217 940e 01e3 	CALL __lcd_write_data
+000219 940e 01c8 	CALL __lcd_ready
+00021b e0ac      	LDI  R26,LOW(12)
+00021c 940e 01e3 	CALL __lcd_write_data
+00021e 940e 01c8 	CALL __lcd_ready
+000220 e0a1      	LDI  R26,LOW(1)
+000221 940e 01e3 	CALL __lcd_write_data
+000223 e0e0      	LDI  R30,LOW(0)
+000224 2e6e      	MOV  R6,R30
+000225 2e7e      	MOV  R7,R30
+000226 9508      	RET
                  ; .FEND
                  _lcd_putchar:
                  ; .FSTART _lcd_putchar
-00022b 93aa      	ST   -Y,R26
-00022c 93ef          push r30
-00022d 93ff          push r31
-00022e 81a8          ld   r26,y
-00022f 9468          set
-000230 30aa          cpi  r26,10
-000231 f019          breq __lcd_putchar1
-000232 94e8          clt
-000233 1479      	CP   R7,R9
-000234 f030      	BRLO _0x2000004
+000227 93aa      	ST   -Y,R26
+000228 93ef          push r30
+000229 93ff          push r31
+00022a 81a8          ld   r26,y
+00022b 9468          set
+00022c 30aa          cpi  r26,10
+00022d f019          breq __lcd_putchar1
+00022e 94e8          clt
+00022f 1479      	CP   R7,R9
+000230 f030      	BRLO _0x2000004
                  	__lcd_putchar1:
-000235 9463      	INC  R6
-000236 e0e0      	LDI  R30,LOW(0)
-000237 93ea      	ST   -Y,R30
-000238 2da6      	MOV  R26,R6
-000239 dfce      	RCALL _lcd_gotoxy
-00023a f036      	brts __lcd_putchar0
+000231 9463      	INC  R6
+000232 e0e0      	LDI  R30,LOW(0)
+000233 93ea      	ST   -Y,R30
+000234 2da6      	MOV  R26,R6
+000235 dfce      	RCALL _lcd_gotoxy
+000236 f036      	brts __lcd_putchar0
                  _0x2000004:
-00023b 9473      	INC  R7
-00023c df8f          rcall __lcd_ready
-00023d 9aa8          sbi  __lcd_port,__lcd_rs ;RS=1
-00023e 81a8      	LD   R26,Y
-00023f 940e 01e7 	CALL __lcd_write_data
+000237 9473      	INC  R7
+000238 df8f          rcall __lcd_ready
+000239 9aa8          sbi  __lcd_port,__lcd_rs ;RS=1
+00023a 81a8      	LD   R26,Y
+00023b 940e 01e3 	CALL __lcd_write_data
                  __lcd_putchar0:
-000241 91ff          pop  r31
-000242 91ef          pop  r30
-000243 940c 0292 	JMP  _0x2020001
+00023d 91ff          pop  r31
+00023e 91ef          pop  r30
+00023f 940c 028e 	JMP  _0x2020001
                  ; .FEND
                  _lcd_puts:
                  ; .FSTART _lcd_puts
-000245 93ba      	ST   -Y,R27
-000246 93aa      	ST   -Y,R26
-000247 931a      	ST   -Y,R17
+000241 93ba      	ST   -Y,R27
+000242 93aa      	ST   -Y,R26
+000243 931a      	ST   -Y,R17
                  _0x2000005:
-000248 81a9      	LDD  R26,Y+1
-000249 81ba      	LDD  R27,Y+1+1
-00024a 91ed      	LD   R30,X+
-00024b 83a9      	STD  Y+1,R26
-00024c 83ba      	STD  Y+1+1,R27
-00024d 2f1e      	MOV  R17,R30
-00024e 30e0      	CPI  R30,0
-00024f f019      	BREQ _0x2000007
-000250 2fa1      	MOV  R26,R17
-000251 dfd9      	RCALL _lcd_putchar
-000252 cff5      	RJMP _0x2000005
+000244 81a9      	LDD  R26,Y+1
+000245 81ba      	LDD  R27,Y+1+1
+000246 91ed      	LD   R30,X+
+000247 83a9      	STD  Y+1,R26
+000248 83ba      	STD  Y+1+1,R27
+000249 2f1e      	MOV  R17,R30
+00024a 30e0      	CPI  R30,0
+00024b f019      	BREQ _0x2000007
+00024c 2fa1      	MOV  R26,R17
+00024d dfd9      	RCALL _lcd_putchar
+00024e cff5      	RJMP _0x2000005
                  _0x2000007:
-000253 8118      	LDD  R17,Y+0
-000254 9623      	ADIW R28,3
-000255 9508      	RET
+00024f 8118      	LDD  R17,Y+0
+000250 9623      	ADIW R28,3
+000251 9508      	RET
                  ; .FEND
                  __long_delay_G100:
                  ; .FSTART __long_delay_G100
-000256 27aa          clr   r26
-000257 27bb          clr   r27
+000252 27aa          clr   r26
+000253 27bb          clr   r27
                  __long_delay0:
-000258 9711          sbiw  r26,1         ;2 cycles
-000259 f7f1          brne  __long_delay0 ;2 cycles
-00025a 9508      	RET
+000254 9711          sbiw  r26,1         ;2 cycles
+000255 f7f1          brne  __long_delay0 ;2 cycles
+000256 9508      	RET
                  ; .FEND
                  __lcd_init_write_G100:
                  ; .FSTART __lcd_init_write_G100
-00025b 93aa      	ST   -Y,R26
-00025c 98a9          cbi  __lcd_port,__lcd_rd 	  ;RD=0
-00025d b3a4          in    r26,__lcd_direction
-00025e 6fa7          ori   r26,0xf7                ;set as output
-00025f bba4          out   __lcd_direction,r26
-000260 b3b5          in    r27,__lcd_port
-000261 70bf          andi  r27,0xf
-000262 81a8          ld    r26,y
-000263 940e 01dd 	CALL __lcd_write_nibble_G100
-000265 9aa9          sbi   __lcd_port,__lcd_rd     ;RD=1
-000266 c02b      	RJMP _0x2020001
+000257 93aa      	ST   -Y,R26
+000258 98a9          cbi  __lcd_port,__lcd_rd 	  ;RD=0
+000259 b3a4          in    r26,__lcd_direction
+00025a 6fa7          ori   r26,0xf7                ;set as output
+00025b bba4          out   __lcd_direction,r26
+00025c b3b5          in    r27,__lcd_port
+00025d 70bf          andi  r27,0xf
+00025e 81a8          ld    r26,y
+00025f 940e 01d9 	CALL __lcd_write_nibble_G100
+000261 9aa9          sbi   __lcd_port,__lcd_rd     ;RD=1
+000262 c02b      	RJMP _0x2020001
                  ; .FEND
                  _lcd_init:
                  ; .FSTART _lcd_init
-000267 93aa      	ST   -Y,R26
-000268 98aa          cbi   __lcd_port,__lcd_enable ;EN=0
-000269 98a8          cbi   __lcd_port,__lcd_rs     ;RS=0
-00026a 8098      	LDD  R9,Y+0
-00026b 81e8      	LD   R30,Y
-00026c 58e0      	SUBI R30,-LOW(128)
+000263 93aa      	ST   -Y,R26
+000264 98aa          cbi   __lcd_port,__lcd_enable ;EN=0
+000265 98a8          cbi   __lcd_port,__lcd_rs     ;RS=0
+000266 8098      	LDD  R9,Y+0
+000267 81e8      	LD   R30,Y
+000268 58e0      	SUBI R30,-LOW(128)
                 +
-00026d 93e0 017d+STS __base_y_G100 + ( 2 ) , R30
+000269 93e0 017d+STS __base_y_G100 + ( 2 ) , R30
                  	__PUTB1MN __base_y_G100,2
-00026f 81e8      	LD   R30,Y
-000270 54e0      	SUBI R30,-LOW(192)
+00026b 81e8      	LD   R30,Y
+00026c 54e0      	SUBI R30,-LOW(192)
                 +
-000271 93e0 017e+STS __base_y_G100 + ( 3 ) , R30
+00026d 93e0 017e+STS __base_y_G100 + ( 3 ) , R30
                  	__PUTB1MN __base_y_G100,3
-000273 d02e      	RCALL SUBOPT_0x1
-000274 d02d      	RCALL SUBOPT_0x1
-000275 d02c      	RCALL SUBOPT_0x1
-000276 dfdf      	RCALL __long_delay_G100
-000277 e2a0      	LDI  R26,LOW(32)
-000278 dfe2      	RCALL __lcd_init_write_G100
-000279 dfdc      	RCALL __long_delay_G100
-00027a e2a8      	LDI  R26,LOW(40)
-00027b d02a      	RCALL SUBOPT_0x2
-00027c e0a4      	LDI  R26,LOW(4)
-00027d d028      	RCALL SUBOPT_0x2
-00027e e8a5      	LDI  R26,LOW(133)
-00027f d026      	RCALL SUBOPT_0x2
-000280 b3a4          in    r26,__lcd_direction
-000281 70af          andi  r26,0xf                 ;set as input
-000282 bba4          out   __lcd_direction,r26
-000283 9aa9          sbi   __lcd_port,__lcd_rd     ;RD=1
-000284 940e 01ff 	CALL _lcd_read_byte0_G100
-000286 30e5      	CPI  R30,LOW(0x5)
-000287 f011      	BREQ _0x200000B
-000288 e0e0      	LDI  R30,LOW(0)
-000289 c008      	RJMP _0x2020001
+00026f d032      	RCALL SUBOPT_0x2
+000270 d031      	RCALL SUBOPT_0x2
+000271 d030      	RCALL SUBOPT_0x2
+000272 dfdf      	RCALL __long_delay_G100
+000273 e2a0      	LDI  R26,LOW(32)
+000274 dfe2      	RCALL __lcd_init_write_G100
+000275 dfdc      	RCALL __long_delay_G100
+000276 e2a8      	LDI  R26,LOW(40)
+000277 d02e      	RCALL SUBOPT_0x3
+000278 e0a4      	LDI  R26,LOW(4)
+000279 d02c      	RCALL SUBOPT_0x3
+00027a e8a5      	LDI  R26,LOW(133)
+00027b d02a      	RCALL SUBOPT_0x3
+00027c b3a4          in    r26,__lcd_direction
+00027d 70af          andi  r26,0xf                 ;set as input
+00027e bba4          out   __lcd_direction,r26
+00027f 9aa9          sbi   __lcd_port,__lcd_rd     ;RD=1
+000280 940e 01fb 	CALL _lcd_read_byte0_G100
+000282 30e5      	CPI  R30,LOW(0x5)
+000283 f011      	BREQ _0x200000B
+000284 e0e0      	LDI  R30,LOW(0)
+000285 c008      	RJMP _0x2020001
                  _0x200000B:
-00028a 940e 01cc 	CALL __lcd_ready
-00028c e0a6      	LDI  R26,LOW(6)
-00028d 940e 01e7 	CALL __lcd_write_data
-00028f 940e 0218 	CALL _lcd_clear
-000291 e0e1      	LDI  R30,LOW(1)
+000286 940e 01c8 	CALL __lcd_ready
+000288 e0a6      	LDI  R26,LOW(6)
+000289 940e 01e3 	CALL __lcd_write_data
+00028b 940e 0214 	CALL _lcd_clear
+00028d e0e1      	LDI  R30,LOW(1)
                  _0x2020001:
-000292 9621      	ADIW R28,1
-000293 9508      	RET
+00028e 9621      	ADIW R28,1
+00028f 9508      	RET
                  ; .FEND
                  
                  	.DSEG
@@ -2176,30 +2175,36 @@ F:\College\14021\Digital II\Practice\Final-2\Debug\List\main.asm(1139): warning:
                  	.CSEG
                  ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:8 WORDS
                  SUBOPT_0x0:
-000294 b216      	IN   R1,22
-000295 81e8      	LD   R30,Y
-000296 81f9      	LDD  R31,Y+1
-000297 9634      	ADIW R30,4
-000298 e0a1      	LDI  R26,LOW(1)
-000299 e0b0      	LDI  R27,HIGH(1)
-00029a 940e 02c0 	CALL __LSLW12
-00029c 2da1      	MOV  R26,R1
-00029d e0b0      	LDI  R27,0
-00029e 23ea      	AND  R30,R26
-00029f 23fb      	AND  R31,R27
-0002a0 9730      	SBIW R30,0
-0002a1 9508      	RET
-                 
-                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:3 WORDS
-                 SUBOPT_0x1:
-0002a2 940e 0256 	CALL __long_delay_G100
-0002a4 e3a0      	LDI  R26,LOW(48)
-0002a5 cfb5      	RJMP __lcd_init_write_G100
+000290 b216      	IN   R1,22
+000291 81e8      	LD   R30,Y
+000292 81f9      	LDD  R31,Y+1
+000293 9634      	ADIW R30,4
+000294 e0a1      	LDI  R26,LOW(1)
+000295 e0b0      	LDI  R27,HIGH(1)
+000296 940e 02c0 	CALL __LSLW12
+000298 2da1      	MOV  R26,R1
+000299 e0b0      	LDI  R27,0
+00029a 23ea      	AND  R30,R26
+00029b 23fb      	AND  R31,R27
+00029c 9730      	SBIW R30,0
+00029d 9508      	RET
                  
                  ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:1 WORDS
+                 SUBOPT_0x1:
+00029e e0aa      	LDI  R26,LOW(10)
+00029f e0b0      	LDI  R27,0
+0002a0 940c 02aa 	JMP  _delay_ms
+                 
+                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:3 WORDS
                  SUBOPT_0x2:
-0002a6 940e 01e7 	CALL __lcd_write_data
-0002a8 940c 0256 	JMP  __long_delay_G100
+0002a2 940e 0252 	CALL __long_delay_G100
+0002a4 e3a0      	LDI  R26,LOW(48)
+0002a5 cfb1      	RJMP __lcd_init_write_G100
+                 
+                 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:1 WORDS
+                 SUBOPT_0x3:
+0002a6 940e 01e3 	CALL __lcd_write_data
+0002a8 940c 0252 	JMP  __long_delay_G100
                  
                  
                  	.CSEG
@@ -2314,31 +2319,31 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 ATmega16A register use summary:
-r0 :  16 r1 :   6 r2 :  18 r3 :   0 r4 :   1 r5 :   1 r6 :   4 r7 :   4 
+r0 :  16 r1 :   6 r2 :  19 r3 :   0 r4 :   1 r5 :   1 r6 :   4 r7 :   4 
 r8 :   0 r9 :   2 r10:   0 r11:   0 r12:   0 r13:   0 r14:   0 r15:   0 
 r16:   4 r17:  12 r18:   0 r19:   0 r20:   0 r21:   0 r22:   5 r23:   0 
-r24:   9 r25:   3 r26: 112 r27:  30 r28:  12 r29:   1 r30: 163 r31:  28 
+r24:   9 r25:   3 r26: 112 r27:  30 r28:  12 r29:   1 r30: 160 r31:  28 
 x  :   4 y  :  94 z  :   9 
 Registers used: 22 out of 35 (62.9%)
 
 ATmega16A instruction use summary:
 .lds  :   0 .lds.l:   0 .sts  :   0 .sts.l:   0 adc   :   1 add   :   5 
-adiw  :  13 and   :   3 andi  :   6 asr   :   0 bclr  :   0 bld   :  13 
+adiw  :  13 and   :   3 andi  :   6 asr   :   0 bclr  :   0 bld   :  14 
 brbc  :   0 brbs  :   0 brcc  :   0 brcs  :   0 break :   0 breq  :   8 
 brge  :   2 brhc  :   0 brhs  :   0 brid  :   0 brie  :   0 brlo  :   1 
-brlt  :   0 brmi  :   0 brne  :  28 brpl  :   0 brsh  :   0 brtc  :   1 
-brts  :   1 brvc  :   0 brvs  :   0 bset  :   0 bst   :   1 call  :  37 
+brlt  :   0 brmi  :   0 brne  :  27 brpl  :   0 brsh  :   0 brtc  :   1 
+brts  :   1 brvc  :   0 brvs  :   0 bset  :   0 bst   :   1 call  :  39 
 cbi   :  14 cbr   :   0 clc   :   0 clh   :   0 cli   :   1 cln   :   0 
 clr   :   4 cls   :   0 clt   :   8 clv   :   0 clz   :   0 com   :   3 
-cp    :   1 cpc   :   0 cpi   :  21 cpse  :   0 dec   :   4 des   :   0 
+cp    :   1 cpc   :   0 cpi   :  20 cpse  :   0 dec   :   4 des   :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :  15 inc   :   3 jmp   :  29 ld    :  36 ldd   :  19 ldi   :  85 
+in    :  15 inc   :   3 jmp   :  30 ld    :  36 ldd   :  19 ldi   :  83 
 lds   :   0 lpm   :   9 lsl   :   2 lsr   :   0 mov   :  14 movw  :   6 
 mul   :   5 muls  :   0 mulsu :   0 neg   :   2 nop   :   0 or    :   2 
-ori   :   5 out   :  30 pop   :   2 push  :   2 rcall :  31 ret   :  22 
-reti  :   2 rjmp  :  34 rol   :   1 ror   :   0 sbc   :   1 sbci  :   3 
-sbi   :  13 sbic  :   1 sbis  :   5 sbiw  :  12 sbr   :   0 sbrc  :   2 
-sbrs  :   7 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   0 
+ori   :   5 out   :  30 pop   :   2 push  :   2 rcall :  29 ret   :  22 
+reti  :   2 rjmp  :  33 rol   :   1 ror   :   0 sbc   :   1 sbci  :   3 
+sbi   :  13 sbic  :   1 sbis  :   5 sbiw  :  12 sbr   :   0 sbrc  :   3 
+sbrs  :   6 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   0 
 ses   :   0 set   :   7 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
 st    :  29 std   :  15 sts   :   2 sub   :   1 subi  :   4 swap  :   2 
 tst   :   2 wdr   :   1 

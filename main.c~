@@ -1,8 +1,11 @@
-#include <mega16.h>
-#asm
-.equ __lcd_port=0x15
-#endasm
+#include <mega16a.h>
 #include <lcd.h>
+
+
+#asm 
+ .equ __lcd_port=0x15; 
+#endasm
+
 #include <delay.h>
 #define IS_ON_LED_OUT PORTD .6
 #define ALARM_OUT PORTD .5
@@ -55,12 +58,6 @@ void handle_remote_action(eRemoteAction rmt_action)
   }
 }
 
-
-interrupt[TIM1_OVF] void exit_silent_mode()
-{
-  is_silent_mode = 0;
-  TCCR1B = 0x00; // turn off the timer
-}
 
 const char KEYPAD_MATRIX[4][3] = {
     {'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}, {'*', '0', '#'}};
@@ -143,7 +140,6 @@ void handle_keypad_action(eKeypadAction action)
 void lcd_render_guide()
 {
   lcd_clear();
-  _lcd_ready();
   lcd_gotoxy(0, 0);
   delay_ms(10);
   lcd_puts("1:on 2:off");
@@ -155,10 +151,19 @@ void lcd_render_guide()
 
 interrupt[2] void trigger_alarm()
 {
-  if (is_on == 1)
+  if (is_on == 1 && !is_silent_mode)
   {
     alarm_triggered = 1;
+  } else {
+  return;
   }
+}
+
+interrupt[TIM1_OVF] void exit_silent_mode()
+{
+  TCCR1B = 0x00; // turn off the timer
+  is_silent_mode = 0;
+  alarm_triggered = 0;  
 }
 
 
@@ -170,18 +175,19 @@ void main()
   PORTB = 0xf0;
   DDRC = 0xff;
   PORTC = 0x00;
-  DDRD = 0b01100000; // Output
+  DDRD = 0b11100000; // Output
   PORTD = 0b01000000;
   GICR = 0b01000000;  // Enabling interrupt 0
   MCUCR = 0b00000011; // Rising Edge
-  GIFR = 0b1110000;
+  GIFR = 0b0000000;
   IS_ON_LED_OUT = 1;
   ALARM_OUT = 0;
   TIMSK |= (1 << TOIE1); // Enable Timer1 Overflow
-
+  
   lcd_init(16);
-  _lcd_ready();
+  delay_ms(10);
   lcd_render_guide();
+  delay_ms(10);
   while (1)
   {
     eRemoteAction rmt_action = rmt_no_action;
@@ -200,10 +206,6 @@ void main()
       rmt_action = rmt_discard_alarm;
     }
 
-    if (REMOTE_PIN .3 == 1)
-    {
-      rmt_action = rmt_turn_on;
-    }
     if (is_remote_locked != 1)
     {
       handle_remote_action(rmt_action);
@@ -238,7 +240,7 @@ void main()
       handle_keypad_action(keypad_action);
     }
     IS_ON_LED_OUT = is_on == 1 ? 1 : 0;
-    ALARM_OUT = (alarm_triggered && !is_silent_mode) ? 1 : 0;
+    ALARM_OUT = alarm_triggered;
     IS_SENSOR_PAUSED_LED = is_silent_mode ? 1 : 0;
   }
 }

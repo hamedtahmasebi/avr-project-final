@@ -12,7 +12,7 @@
 #define IS_SENSOR_PAUSED_LED PORTD .7
 #define KEYPAD_PIN PINB
 #define KEYPAD_PORT PORTB
-#define KEYPAD_ENABLE_PIN PINA .3
+#define KEYPAD_ENABLE_PIN PINA .4
 #define REMOTE_PIN PINA
 int PAUSE_TIME_AFTER_DISCARD_SECONDS = 5;
 
@@ -24,15 +24,12 @@ typedef enum
   rmt_discard_alarm,
 } eRemoteAction;
 
-bit is_on = 1;
-bit alarm_triggered = 0;  // If alarm is triggered, this will be 1 until alarm is discarded
-bit is_silent_mode = 0;   // A few seconds after alarm discard, the sensor input will be ignored.
 bit is_remote_locked = 0; // if remote is locked programmatically using keypad
 void temporarily_pause_sensor()
 {
   // with prescale set to 1024 and clk frequency = 1MHz, timer counts almost 1ms each clock.
   int timer_bottom = (65 - PAUSE_TIME_AFTER_DISCARD_SECONDS) * 1000;
-  is_silent_mode = 1;
+  IS_SENSOR_PAUSED_LED = 1;
   TCNT1 = timer_bottom;
   TCCR1B |= 0x05; // prescale set to 5 -> 1MHz / 1024 ~= 1ms
 }
@@ -44,16 +41,16 @@ void handle_remote_action(eRemoteAction rmt_action)
 
   if (rmt_action == rmt_turn_on)
   {
-    is_on = 1;
+    IS_ON_LED_OUT = 1;
   }
   if (rmt_action == rmt_turn_off)
   {
-    is_on = 0;
-    alarm_triggered = 0;
+    IS_ON_LED_OUT = 0;
+    ALARM_OUT = 0;
   }
   if (rmt_action == rmt_discard_alarm)
   {
-    alarm_triggered = 0;
+    ALARM_OUT = 0;
     temporarily_pause_sensor();
   }
 }
@@ -114,12 +111,13 @@ void handle_keypad_action(eKeypadAction action)
     return;
   if (action == kp_turn_on)
   {
-    is_on = 1;
+    IS_ON_LED_OUT = 1;
   }
 
   if (action == kp_turn_off)
   {
-    is_on = 0;
+    IS_ON_LED_OUT = 0;
+    ALARM_OUT = 0;
   }
 
   if (action == kp_lock_remote)
@@ -133,7 +131,7 @@ void handle_keypad_action(eKeypadAction action)
   }
   if (action == kp_discard_alarm)
   {
-    alarm_triggered = 0;
+    ALARM_OUT = 0;
     temporarily_pause_sensor();
   }
 }
@@ -152,9 +150,9 @@ void lcd_render_guide()
 
 interrupt[2] void trigger_alarm()
 {
-  if (is_on == 1 && !is_silent_mode)
+  if (IS_ON_LED_OUT == 1 && !IS_SENSOR_PAUSED_LED)
   {
-    alarm_triggered = 1;
+    ALARM_OUT = 1;
   } else {
   return;
   }
@@ -163,8 +161,10 @@ interrupt[2] void trigger_alarm()
 interrupt[TIM1_OVF] void exit_silent_mode()
 {
   TCCR1B = 0x00; // turn off the timer
-  is_silent_mode = 0;
-  alarm_triggered = 0;  
+  IS_SENSOR_PAUSED_LED = 0;
+  ALARM_OUT = 0;
+  ALARM_OUT = 0;
+  IS_SENSOR_PAUSED_LED = 0;  
 }
 
 
@@ -192,6 +192,7 @@ void main()
   while (1)
   {
     eRemoteAction rmt_action = rmt_no_action;
+    
     if (REMOTE_PIN .0 == 1)
     {
       rmt_action = rmt_turn_on;
@@ -240,8 +241,6 @@ void main()
       }
       handle_keypad_action(keypad_action);
     }
-    IS_ON_LED_OUT = is_on == 1 ? 1 : 0;
-    ALARM_OUT = alarm_triggered;
-    IS_SENSOR_PAUSED_LED = is_silent_mode ? 1 : 0;
+
   }
 }

@@ -138,7 +138,7 @@ UseEEPROMLocation0=1
 RebuildAll=1
 LinkageInformationPresent=0
 COFFileTimeStamp=1469539699
-Build=36
+Build=60
 [DefinedSymbolsDebug]
 Count=0
 [Compiler]
@@ -239,8 +239,8 @@ WatchAVR8LAutoVariables=0
 UseEEPROMLocation0=1
 RebuildAll=0
 LinkageInformationPresent=1
-COFFileTimeStamp=1469545526
-Build=36
+COFFileTimeStamp=1469679681
+Build=60
 IncludePath0=
 IncludePath1=
 IncludePath2=
@@ -491,8 +491,8 @@ L13=Enhanced function parameters passing: Yes
 L14=Automatic register allocation: Yes
 L15=Smart register allocation: Yes
 L16=
-L17=Build: 35
-L18=1350 line(s) compiled
+L17=Build: 60
+L18=1346 line(s) compiled
 L19=No errors
 L20=No warnings
 L21=
@@ -501,7 +501,7 @@ L23=Bit variables size: 1 byte(s)
 L24=
 L25=Data Stack area: 0x60 to 0x15F
 L26=Data Stack size: 256 byte(s)
-L27=Estimated Data Stack usage: 12 byte(s)
+L27=Estimated Data Stack usage: 11 byte(s)
 L28=
 L29=RAM Global variables area: 0x160 to 0x17E
 L30=RAM Global variables size: 31 byte(s)
@@ -512,19 +512,19 @@ L34=
 L35=Heap size: 0 byte(s)
 L36=
 L37=EEPROM usage: 0 byte(s), 0.0% of EEPROM
-L38=Program size: 746 words (1492 bytes), 9.1% of FLASH
+L38=Program size: 706 words (1412 bytes), 8.6% of FLASH
 Lines=39
-L39=13 words (26 bytes), 1.7% reduced by Code Compression
+L39=13 words (26 bytes), 1.8% reduced by Code Compression
 [BuildInfoAssembler]
 L1=AVRASM: AVR macro assembler 2.1.30 (build 592 Nov  7 2008 12:38:17)
 L2=Copyright (C) 1995-2008 ATMEL Corporation
 L3=
-L4=F:\College\14021\Digital II\Practice\Final-2\Release\List\main.asm(2262): No EEPROM data, deleting F:\College\14021\Digital II\Practice\Final-2\Release\Exe\main.eep
+L4=F:\College\14021\Digital II\Practice\Final-2\Release\List\main.asm(2207): No EEPROM data, deleting F:\College\14021\Digital II\Practice\Final-2\Release\Exe\main.eep
 L5=
 L6=ATmega16A memory use summary [bytes]:
 L7=Segment   Begin    End      Code   Data   Used    Size   Use%
 L8=---------------------------------------------------------------
-L9=[.cseg] 0x000000 0x0005d4   1414     78   1492   16384   9.1%
+L9=[.cseg] 0x000000 0x000584   1334     78   1412   16384   8.6%
 L10=[.dseg] 0x000060 0x00017f      0     31     31    1024   3.0%
 L11=[.eseg] 0x000000 0x000000      0      0      0     512   0.0%
 L12=
@@ -560,11 +560,11 @@ F3=C:\cvavr\inc\alcd.h
 F4=C:\cvavr\inc\lcd.h
 F5=C:\cvavr\inc\mega16a.h
 [Bookmarks1]
-TimeStamp=1469547074
-Row=241
-Column=140
+TimeStamp=1469678684
+Row=27
+Column=178
 ScrollPosX=0
-ScrollPosY=231
+ScrollPosY=0
 BK0=-1
 BK1=-1
 BK2=-1
@@ -634,19 +634,6 @@ BK8=-1
 BK9=-1
 [FoldedCode3]
 Blocks=0
-[HeadersList]
-Files=1
-F1=F:\College\14021\Digital II\Practice\Final-2\main.c
-[Header1]
-Files=4
-F1=C:\cvavr\inc\mega16a.h
-F2=C:\cvavr\inc\mega16_bits.h
-F3=C:\cvavr\inc\lcd.h
-F4=C:\cvavr\inc\delay.h
-[FoldedCode1]
-Blocks=0
-[FoldedCode4]
-Blocks=0
 [Bookmarks5]
 TimeStamp=1046248928
 Row=31
@@ -663,5 +650,18 @@ BK6=-1
 BK7=-1
 BK8=-1
 BK9=-1
+[FoldedCode1]
+Blocks=0
 [FoldedCode5]
 Blocks=0
+[FoldedCode4]
+Blocks=0
+[HeadersList]
+Files=1
+F1=F:\College\14021\Digital II\Practice\Final-2\main.c
+[Header1]
+Files=4
+F1=C:\cvavr\inc\mega16a.h
+F2=C:\cvavr\inc\mega16_bits.h
+F3=C:\cvavr\inc\lcd.h
+F4=C:\cvavr\inc\delay.h

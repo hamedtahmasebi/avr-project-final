@@ -163,7 +163,6 @@ interrupt[TIM1_OVF] void exit_silent_mode()
   TCCR1B = 0x00; // turn off the timer
   IS_SENSOR_PAUSED_LED = 0;
   ALARM_OUT = 0;
-  ALARM_OUT = 0;
   IS_SENSOR_PAUSED_LED = 0;  
 }
 
